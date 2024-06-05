@@ -1,9 +1,11 @@
 <?php
 require_once('Controllers/NoticeController.php');
 require_once('Controllers/AdminController.php');
+require_once('Controllers/SystemController.php');
 
 $noticeController = new NoticeController();
 $adminController = new AdminController();
+$systemController = new SystemController();
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 $id = isset($_GET['id']) ? $_GET['id'] : '';
@@ -35,6 +37,9 @@ switch ($action) {
     case 'verify_user':
         $adminController->verifyAdmin();
         break;
+        case 'system':
+            $systemController->getDataSystem();
+            break;
     default:
         header("Location: ./404.php");
         break;
