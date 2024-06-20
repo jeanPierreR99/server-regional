@@ -41,9 +41,13 @@ class SystemService
 
     function getMmemoryUsage()
     {
-        $memoryUsage = memory_get_usage(true);
-        $memoryTotal = $this->formatSize($memoryUsage);
-        return $memoryTotal;
+
+        $output = shell_exec('free -m');
+        $lines = explode("\n", $output);
+        $memory_line = explode(" ", preg_replace('/\s+/', ' ', trim($lines[1])));
+        $memory_in_use =$memory_line[2]; // Total - Libre
+
+        return $memory_in_use;
     }
 
     function getCpuUsage()
@@ -61,7 +65,7 @@ class SystemService
         $this->responseSuccess["response"]["data"]["size"] = $sizeFile;
         $this->responseSuccess["response"]["data"]["memory"] = $memory;
         $this->responseSuccess["response"]["data"]["cpu"] = $cpu;
-        
+
         echo json_encode($this->responseSuccess);
     }
 }

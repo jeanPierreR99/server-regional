@@ -31,7 +31,7 @@ class NoticeModel
 
     public function addFile($fileName, $filePath, $extension, $noticeId)
     {
-        $statement = $this->connection->prepare("INSERT INTO file (name, url, type, notice_id) VALUES (?, ?, ?, ?)");
+        $statement = $this->connection->prepare("INSERT INTO file_notice (name, url, type, notice_id) VALUES (?, ?, ?, ?)");
         $statement->execute([$fileName, $filePath, $extension, $noticeId]);
     }
 
@@ -44,14 +44,14 @@ class NoticeModel
 
     public function getFilesByNoticeId($noticeId)
     {
-        $statement = $this->connection->prepare("SELECT * FROM file WHERE notice_id = ?");
+        $statement = $this->connection->prepare("SELECT * FROM file_notice WHERE notice_id = ?");
         $statement->execute([$noticeId]);
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getNotice()
     {
-        $statement = $this->connection->prepare("SELECT notice.*, file.id AS file_id, file.name AS file_name, file.url AS file_url, file.type AS file_type FROM notice LEFT JOIN file ON notice.id = file.notice_id order by create_at desc");
+        $statement = $this->connection->prepare("SELECT notice.*, file_notice.id AS file_id, file_notice.name AS file_name, file_notice.url AS file_url, file_notice.type AS file_type FROM notice LEFT JOIN file_notice ON notice.id = file_notice.notice_id order by create_at desc");
         $statement->execute();
         $notices = $statement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -90,11 +90,11 @@ class NoticeModel
             return;
         }
 
-        $statement = $this->connection->prepare("SELECT url FROM file WHERE notice_id = ?");
+        $statement = $this->connection->prepare("SELECT url FROM file_notice WHERE notice_id = ?");
         $statement->execute([$noticeId]);
         $filePaths = $statement->fetchAll(PDO::FETCH_COLUMN);
 
-        $statement = $this->connection->prepare("DELETE FROM file WHERE notice_id = ?");
+        $statement = $this->connection->prepare("DELETE FROM file_notice WHERE notice_id = ?");
         $statement->execute([$noticeId]);
 
         $statement = $this->connection->prepare("DELETE FROM notice WHERE id = ?");

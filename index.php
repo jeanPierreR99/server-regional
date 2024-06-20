@@ -1,15 +1,16 @@
 <?php
 require_once('Controllers/NoticeController.php');
+require_once('Controllers/PostController.php');
 require_once('Controllers/AdminController.php');
 require_once('Controllers/SystemController.php');
 
 $noticeController = new NoticeController();
+$postController = new PostController();
 $adminController = new AdminController();
 $systemController = new SystemController();
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 $id = isset($_GET['id']) ? $_GET['id'] : '';
-// Permitir solicitudes desde cualquier origen (no recomendado en producción)
 header("Access-Control-Allow-Origin: *");
 
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
@@ -31,15 +32,24 @@ switch ($action) {
     case 'get_notice':
         $noticeController->getNoticeAndFile();
         break;
+    case 'add_post':
+        $postController->addPostAndFile();
+        break;
+    case 'get_post':
+        $postController->getPostAndFile();
+        break;
+    case 'delete_post':
+        $postController->deletePostAndFile($id);
+        break;
     case 'get_user':
         $adminController->getAdmin();
         break;
     case 'verify_user':
         $adminController->verifyAdmin();
         break;
-        case 'system':
-            $systemController->getDataSystem();
-            break;
+    case 'system':
+        $systemController->getDataSystem();
+        break;
     default:
         header("Location: ./404.php");
         break;
