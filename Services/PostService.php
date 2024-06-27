@@ -52,7 +52,7 @@ class PostService
             }
 
             $post = $this->postModel->getFileByPostId($postId);
-      
+
             $this->postModel->responseSuccess["response"]["data"] = $post;
 
             echo json_encode($this->postModel->responseSuccess);
@@ -63,5 +63,19 @@ class PostService
     {
         $response = $this->postModel->deletePost($postId);
         echo json_encode($response);
+    }
+
+    public function updatePost()
+    {
+        $status = $_POST['status'];
+        $id = $_POST['id'];
+
+        $this->postModel->updatePost($status, $id);
+
+        $post = $this->postModel->getPost();
+
+        $this->postModel->responseSuccess["response"]["data"] = array_values($post);
+
+        echo json_encode($this->postModel->responseSuccess);
     }
 }

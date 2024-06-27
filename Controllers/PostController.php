@@ -27,4 +27,10 @@ class PostController
 
         return $this->postService->addPostAndFile();
     }
+
+    public function updatePost()
+    {
+
+        return $this->postService->updatePost();
+    }
 }

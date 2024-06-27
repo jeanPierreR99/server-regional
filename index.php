@@ -38,6 +38,9 @@ switch ($action) {
     case 'get_post':
         $postController->getPostAndFile();
         break;
+    case 'update_post':
+        $postController->updatePost();
+        break;
     case 'delete_post':
         $postController->deletePostAndFile($id);
         break;

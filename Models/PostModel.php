@@ -67,6 +67,7 @@ class PostModel
             if (!isset($groupPosts[$postId])) {
                 $groupPosts[$postId] = [
                     'id' => $post['id'],
+                    'status' => $post['status'],
                     'title' => $post['title'],
                     'content' => $post['content'],
                     'date_published' => $post['date_published'],
@@ -79,6 +80,12 @@ class PostModel
             }
         }
         return $groupPosts;
+    }
+
+    public function updatePost($status, $postId)
+    {
+        $statement = $this->connection->prepare("UPDATE post set status = ? where id = ?");
+        $statement->execute([$status, $postId]);
     }
 
     public function deletePost($postId)
