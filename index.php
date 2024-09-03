@@ -3,11 +3,13 @@ require_once('Controllers/NoticeController.php');
 require_once('Controllers/PostController.php');
 require_once('Controllers/AdminController.php');
 require_once('Controllers/SystemController.php');
+require_once('Controllers/GalleryController.php');
 
 $noticeController = new NoticeController();
 $postController = new PostController();
 $adminController = new AdminController();
 $systemController = new SystemController();
+$galleryController = new GalleryController();
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 $id = isset($_GET['id']) ? $_GET['id'] : '';
@@ -52,6 +54,15 @@ switch ($action) {
         break;
     case 'system':
         $systemController->getDataSystem();
+        break;
+    case 'get_gallery':
+        $galleryController->getGalleryAndFile();
+        break;
+    case 'add_gallery':
+        $galleryController->addGalleryAndFile();
+        break;
+    case 'delete_gallery':
+        $galleryController->deleteGalleryAndFile($id);
         break;
     default:
         header("Location: ./404.php");
