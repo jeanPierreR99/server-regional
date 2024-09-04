@@ -33,7 +33,7 @@ class PostService
         $create_at = $_POST['create_at'];
         $date_published = $_POST['date_published'];
 
-        $uploadsDirectory = '../uploads/';
+        $uploadsDirectory = './uploads/';
 
         $postId = $this->postModel->addPost($title, $content, $create_at, $date_published);
 

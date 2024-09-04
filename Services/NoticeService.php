@@ -33,7 +33,7 @@ class NoticeService
         $create_at = $_POST['create_at'];
         $date_published = $_POST['date_published'];
 
-        $uploadsDirectory = '../uploads/';
+        $uploadsDirectory = './uploads/';
 
         $noticeId = $this->noticeModel->addNotice($title, $content, $create_at, $date_published);
 

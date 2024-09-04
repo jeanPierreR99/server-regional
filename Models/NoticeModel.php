@@ -51,7 +51,7 @@ class NoticeModel
 
     public function getNotice()
     {
-        $statement = $this->connection->prepare("SELECT notice.*, file_notice.id AS file_id, file_notice.name AS file_name, file_notice.url AS file_url, file_notice.type AS file_type FROM notice LEFT JOIN file_notice ON notice.id = file_notice.notice_id order by create_at desc");
+        $statement = $this->connection->query("SELECT notice.*, file_notice.id AS file_id, file_notice.name AS file_name, file_notice.url AS file_url, file_notice.type AS file_type FROM notice LEFT JOIN file_notice ON notice.id = file_notice.notice_id order by create_at desc");
         $statement->execute();
         $notices = $statement->fetchAll(PDO::FETCH_ASSOC);
 
