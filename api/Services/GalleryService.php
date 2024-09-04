@@ -32,7 +32,7 @@ class GalleryService
         $create_at = $_POST['create_at'];
         $date_published = $_POST['date_published'];
 
-        $uploadsDirectory = './uploads/gallery/';
+        $uploadsDirectory = '../uploads/gallery/';
 
         $galleryId = $this->galleryModel->addGallery($title, $create_at, $date_published);
 
